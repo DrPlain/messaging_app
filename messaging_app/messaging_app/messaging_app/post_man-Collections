@@ -1,0 +1,397 @@
+{
+	"info": {
+		"_postman_id": "b7add075-7fde-4b11-86db-82452ae2ba0c",
+		"name": "Messaging app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40658520"
+	},
+	"item": [
+		{
+			"name": "get messages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api-auth/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"promiseobiasor@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"phone_number\": \"08034573908\",\r\n    \"role\": \"admin\",\r\n    \"first_name\": \"Promise\",\r\n    \"last_name\": \"Obiasor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-auth/signup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"signup",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ebukaobiasor@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"disabled": true
+						},
+						{
+							"key": "first_name",
+							"value": "Ebuka",
+							"disabled": true
+						},
+						{
+							"key": "last_name",
+							"value": "Obiasor",
+							"disabled": true
+						},
+						{
+							"key": "role",
+							"value": "guest",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1MjQ2NzkxLCJpYXQiOjE3MzUyNDU4OTEsImp0aSI6IjEzODNjOGUzOTM0NTQyYmJiYTA5Mzk3OGJiZWQ3NWRjIiwidXNlcl9pZCI6IjQ1NmIzM2Y1LTEzZWEtNDUyMS05ZjgxLTFiZDU4ZTVmOGU0YiJ9.nhvShMPU_4_dTGSTR_xQ0GikD4eX31nfUY_1dzC7tmM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"conversation_id\": \"085c773c-7fe3-48d1-88a2-f30055fae6f5\",\r\n    \"message_body\": \"This message 3 is from postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-auth/messages/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create conversation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1MjUyNDk4LCJpYXQiOjE3MzUyNDg4OTgsImp0aSI6Ijc1NDVmMjQ5NzZmNDQ0ZmI4MTg0NzM2NDQ1MzhhNDI2IiwidXNlcl9pZCI6ImIzNWQ2Mzg5LTFkNzItNDNlYi1iMjJlLWQ3ODNkZDJjODFmOSJ9.Ja3ZFXYYPOb6u0PBlppg0qNe_mSk_6Os_dzTgxZqiKM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"participants\": [\"b35d6389-1d72-43eb-b22e-d783dd2c81f9\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api-auth/conversations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ebukaobiasor@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ebukaobiasor",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ebukaobiasor2@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 26 Dec 2024 21:34:58 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.10"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "582"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczNTg1MzY5OCwiaWF0IjoxNzM1MjQ4ODk4LCJqdGkiOiI4ZTFkOGE2NzBmMjk0NDkyODY0NzQ3YTljNDZjYTc4ZSIsInVzZXJfaWQiOiJiMzVkNjM4OS0xZDcyLTQzZWItYjIyZS1kNzgzZGQyYzgxZjkifQ.1iPls3fRNv9gUu7dFHG3YZhnCs7V_bABMedH6uwsHPM\",\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1MjUyNDk4LCJpYXQiOjE3MzUyNDg4OTgsImp0aSI6Ijc1NDVmMjQ5NzZmNDQ0ZmI4MTg0NzM2NDQ1MzhhNDI2IiwidXNlcl9pZCI6ImIzNWQ2Mzg5LTFkNzItNDNlYi1iMjJlLWQ3ODNkZDJjODFmOSJ9.Ja3ZFXYYPOb6u0PBlppg0qNe_mSk_6Os_dzTgxZqiKM\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get conversations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api-auth/conversations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get message by id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get conversation by id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "sharonobiasor",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM1MjUyNDk4LCJpYXQiOjE3MzUyNDg4OTgsImp0aSI6Ijc1NDVmMjQ5NzZmNDQ0ZmI4MTg0NzM2NDQ1MzhhNDI2IiwidXNlcl9pZCI6ImIzNWQ2Mzg5LTFkNzItNDNlYi1iMjJlLWQ3ODNkZDJjODFmOSJ9.Ja3ZFXYYPOb6u0PBlppg0qNe_mSk_6Os_dzTgxZqiKM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api-auth/conversations/6e339843-d8e2-4a81-8e2e-1fa04d850248",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api-auth",
+								"conversations",
+								"6e339843-d8e2-4a81-8e2e-1fa04d850248"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 26 Dec 2024 21:47:37 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.10"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1155"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"conversation_id\": \"6e339843-d8e2-4a81-8e2e-1fa04d850248\",\n    \"messages\": [\n        {\n            \"message_id\": \"4192c425-3b41-4541-bb55-02d93c102bfa\",\n            \"conversation_id\": \"6e339843-d8e2-4a81-8e2e-1fa04d850248\",\n            \"message_body\": \"This message 5 is from ebuka2\",\n            \"sent_at\": \"2024-12-26T21:41:41.587567Z\",\n            \"sender_id\": \"b35d6389-1d72-43eb-b22e-d783dd2c81f9\"\n        },\n        {\n            \"message_id\": \"910e76a4-f1c6-491e-8a75-74719e3e12d4\",\n            \"conversation_id\": \"6e339843-d8e2-4a81-8e2e-1fa04d850248\",\n            \"message_body\": \"This message 6 is from ebuka2 conversation 2\",\n            \"sent_at\": \"2024-12-26T21:42:11.159834Z\",\n            \"sender_id\": \"b35d6389-1d72-43eb-b22e-d783dd2c81f9\"\n        },\n        {\n            \"message_id\": \"fc111f1a-8256-4719-836c-e0506b6e1275\",\n            \"conversation_id\": \"6e339843-d8e2-4a81-8e2e-1fa04d850248\",\n            \"message_body\": \"This message 7 is from ebuka2 conversation 2\",\n            \"sent_at\": \"2024-12-26T21:42:18.018882Z\",\n            \"sender_id\": \"b35d6389-1d72-43eb-b22e-d783dd2c81f9\"\n        },\n        {\n            \"message_id\": \"b9a8122e-e51e-401a-8056-eb4b204523f1\",\n            \"conversation_id\": \"6e339843-d8e2-4a81-8e2e-1fa04d850248\",\n            \"message_body\": \"This message 8 is from ebuka2 conversation 2\",\n            \"sent_at\": \"2024-12-26T21:42:25.454722Z\",\n            \"sender_id\": \"b35d6389-1d72-43eb-b22e-d783dd2c81f9\"\n        }\n    ],\n    \"created_at\": \"2024-12-26T21:35:45.566021Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api-auth/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api-auth",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

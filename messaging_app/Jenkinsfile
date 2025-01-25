@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    environment {
+        GITHUB_CREDENTIALS_ID = '2dcd791b-80ff-48be-abf0-1b4fa7bd81d9' // Replace with your Jenkins GitHub credentials ID
+        APP_REPO_URL = 'https://github.com/DrPlain/alx-backend-python.git' // Replace with your repository URL
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    // Pull the code from GitHub
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/main']], // Adjust branch if needed
+                        userRemoteConfigs: [[
+                            url: "${APP_REPO_URL}",
+                            credentialsId: "${GITHUB_CREDENTIALS_ID}"
+                        ]]
+                    ])
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies...'
+                // Ensure you use the appropriate Python environment
+                sh 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                echo 'Running tests...'
+                // Run pytest and generate a report
+                sh 'pytest --junitxml=reports/test-results.xml'
+            }
+        }
+
+        stage('Publish Test Results') {
+            steps {
+                echo 'Publishing test results...'
+                // Archive the test reports
+                junit 'reports/test-results.xml'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for errors.'
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+    }
+}

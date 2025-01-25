@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Script: kubectl-0x01
+# Description: Scale Django app deployment, verify pods, perform load testing, and monitor resource usage.
+
+# Set deployment name and namespace (update as necessary)
+DEPLOYMENT_NAME="django-messaging-app"
+NAMESPACE="default" # Change if your deployment is in a different namespace
+
+# Check if kubectl is installed
+if ! command -v kubectl &> /dev/null; then
+  echo "Error: kubectl is not installed. Please install kubectl to proceed."
+  exit 1
+fi
+
+# Scale the deployment to 3 replicas
+echo "Scaling deployment $DEPLOYMENT_NAME to 3 replicas..."
+kubectl scale deployment $DEPLOYMENT_NAME --replicas=1 -n $NAMESPACE
+
+# Verify the scaling operation
+echo "Verifying that 3 pods are running for $DEPLOYMENT_NAME..."
+kubectl get pods -l app=django-messaging -n $NAMESPACE
+
+# Check if wrk is installed
+if ! command -v wrk &> /dev/null; then
+  echo "Error: wrk is not installed. Please install wrk to perform load testing."
+  exit 1
+fi
+
+# Load testing using wrk (Update the endpoint as necessary)
+APP_SERVICE_NAME="django-messaging-service"
+PORT=8000
+ENDPOINT=$(kubectl get svc $APP_SERVICE_NAME -n $NAMESPACE -o jsonpath='{.spec.clusterIP}')
+URL="http://localhost:8000/api-auth/messages/"
+
+echo "Performing load testing using wrk on $URL..."
+wrk -t4 -c100 -d20s $URL
+
+# Monitor resource usage
+echo "Monitoring resource usage of pods..."
+kubectl top pods -n $NAMESPACE

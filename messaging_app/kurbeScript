@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# kurbeScript: A simple script to start a Kubernetes cluster, verify it, and retrieve nodes
+
+# Function to start Kubernetes cluster
+start_cluster() {
+  echo "Starting Kubernetes cluster..."
+  
+  # Check if Minikube is installed
+  if command -v minikube &> /dev/null; then
+    minikube start
+  # Check if kind (Kubernetes in Docker) is installed
+  elif command -v kind &> /dev/null; then
+    kind create cluster
+  else
+    echo "Neither Minikube nor kind is installed. Please install one of them to proceed."
+    exit 1
+  fi
+}
+
+# Function to verify if Kubernetes cluster is running
+verify_cluster() {
+  echo "Verifying if the Kubernetes cluster is running..."
+  kubectl cluster-info
+  if [ $? -ne 0 ]; then
+    echo "Cluster is not running. Exiting script."
+    exit 1
+  fi
+}
+
+# Function to retrieve available nodes
+get_nodes() {
+  echo "Retrieving available nodes in the cluster..."
+  kubectl get pods
+}
+
+# Main script execution
+start_cluster
+verify_cluster
+get_nodes

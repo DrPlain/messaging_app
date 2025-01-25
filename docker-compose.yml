@@ -1,0 +1,35 @@
+services:
+  web:
+    build:
+      context: .
+      network: "host"
+    image: drplain004/django-messaging-app:latest
+    container_name: messaging_app
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql-service
+    environment:
+      - DB_NAME=${MYSQL_DB}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_HOST=${MYSQL_HOST}
+      - DB_PORT=3306
+  mysql-service:
+    image: mysql:8.0
+    container_name: mysql8-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
