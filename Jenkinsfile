@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_CREDENTIALS_ID = 'github-credentials-id' // Replace with your Jenkins GitHub credentials ID
-        REPO_URL = 'https://github.com/your-username/messaging-app.git' // Replace with your repository URL
-        BRANCH = 'main' // Replace with the branch name you want to build
-        VENV_DIR = 'venv' // Directory for Python virtual environment
+        GITHUB_CREDENTIALS_ID = 'github-credential-id' // Replace with your Jenkins GitHub credentials ID
+        REPO_URL = 'https://github.com/DrPlain/messaging_app.git' // Replace with your repository URL
+        BRANCH = 'master' // Replace with the branch name you want to build
+        // VENV_DIR = 'venv' // Directory for Python virtual environment
     }
 
     stages {
@@ -22,10 +22,8 @@ pipeline {
             steps {
                 echo 'Installing dependencies from requirements.txt...'
                 sh '''
-                python3 -m venv ${VENV_DIR}
-                source ${VENV_DIR}/bin/activate
                 pip3 install --upgrade pip
-                pip3 install -r messaging_app/requirements.txt
+                pip3 install -r requirements.txt
                 '''
             }
         }
@@ -34,7 +32,6 @@ pipeline {
             steps {
                 echo 'Running tests using pytest...'
                 sh '''
-                source ${VENV_DIR}/bin/activate
                 pytest messaging_app --junitxml=report.xml
                 '''
             }
