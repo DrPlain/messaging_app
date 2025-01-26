@@ -35,7 +35,7 @@ pipeline {
                 echo 'Running tests using pytest...'
                 sh '''
                 . ${VENV_DIR}/bin/activate
-                pytest messaging_app --junitxml=report.xml
+                python manage.py test
                 '''
             }
         }
