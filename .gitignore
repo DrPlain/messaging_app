@@ -1,3 +1,4 @@
 db.sqlite3
 .env
 github_token
+.venv
