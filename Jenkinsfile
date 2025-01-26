@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Installing dependencies from requirements.txt...'
                 sh '''
-                python -m venv ${VENV_DIR}
+                python3 -m venv ${VENV_DIR}
                 source ${VENV_DIR}/bin/activate
                 pip3 install --upgrade pip
                 pip3 install -r requirements.txt
