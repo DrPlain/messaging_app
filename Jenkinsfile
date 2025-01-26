@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     echo 'Checking out code from the Git branch...'
-                    git branch: "${BRANCH}", credentialsId: "${GITHUB_CREDENTIALS_ID}", url: "${REPO_URL}", timeout: 300
+                    git branch: "${BRANCH}", credentialsId: "${GITHUB_CREDENTIALS_ID}", url: "${REPO_URL}", timeout: 20
                 }
             }
         }
@@ -50,8 +50,10 @@ pipeline {
 
     post {
         always {
-            echo 'Cleaning up workspace...'
-            cleanWs()
+            node {
+                echo 'Cleaning up workspace...'
+                cleanWs()
+            }
         }
         success {
             echo 'Pipeline executed successfully!'
@@ -60,4 +62,5 @@ pipeline {
             echo 'Pipeline execution failed. Check logs for more details.'
         }
     }
+
 }
