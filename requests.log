@@ -1941,3 +1941,13 @@
 2025-01-23 13:14:04.354591 - User: AnonymousUser - Path: /swagger/ - IP: 127.0.0.1
 2025-01-23 13:14:15.729952 - User: AnonymousUser - Path: /api-auth/messages/ - IP: 127.0.0.1
 2025-01-23 13:14:19.201747 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:17:28.272577 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:18:06.019854 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:18:27.556337 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:19:27.727610 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:21:07.415677 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:22:11.653751 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:22:30.289768 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:22:46.404201 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:23:18.515795 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1
+2025-01-26 22:23:31.679047 - User: AnonymousUser - Path: /socketcluster/ - IP: 127.0.0.1

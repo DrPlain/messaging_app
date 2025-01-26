@@ -29,6 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+PRODUCTION = False
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost', cast=lambda v: [
                        s.strip() for s in v.split(',')])
@@ -86,8 +87,8 @@ WSGI_APPLICATION = 'messaging_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-try:
-    config('DB_ENGINE')
+if PRODUCTION == True:
+
     DATABASES = {
         'default': {
             'ENGINE': config('DB_ENGINE'),
@@ -101,7 +102,8 @@ try:
             # }
         }
     }
-except Exception as err:
+else:
+    print('Ientered here')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
