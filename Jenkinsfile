@@ -50,11 +50,8 @@ pipeline {
 
     post {
         always {
-            agent any
-            steps {
-                echo 'Cleaning up workspace...'
-                cleanWs()
-            }
+            echo 'Cleaning up workspace...'
+            cleanWs()
         }
         success {
             echo 'Pipeline executed successfully!'
