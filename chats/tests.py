@@ -4,7 +4,6 @@ from rest_framework import status
 from .models import User, Conversation, Message
 from .serializers import SignUpSerializer, MessageSerializer, ConversationSerializer
 from django.urls import reverse
-from uuid import uuid4
 
 
 class UserTests(TestCase):
