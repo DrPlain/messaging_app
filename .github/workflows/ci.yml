@@ -63,7 +63,7 @@ jobs:
 
       - name: Upload test results
         if: success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-report
           path: test-reports/ # Ensure that your test reports are saved in this directory
