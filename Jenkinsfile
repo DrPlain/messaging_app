@@ -15,6 +15,9 @@ pipeline {
         MYSQL_PORT='MYSQL_PORT'
         ALLOWED_HOSTS='ALLOWED_HOSTS'
         DB_ENGINE='DB_ENGINE'
+        DOCKER_IMAGE_NAME = 'drplain004/messaging-app' // Replace with your Docker image name
+        DOCKER_REGISTRY = 'docker.io' // Registry for docker hub
+        DOCKER_CREDENTIALS_ID = 'docker-credentials-id' // Jenkins credentials for Docker registry
     }
 
     stages {
@@ -46,6 +49,27 @@ pipeline {
                 . ${VENV_DIR}/bin/activate
                 python manage.py test
                 '''
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker image...'
+                script {
+                    dockerImage = docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                echo 'Pushing Docker image to registry...'
+                script {
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }
