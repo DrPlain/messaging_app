@@ -45,7 +45,6 @@ jobs:
         run: |
           sleep 30  # Wait for MySQL to be fully ready
           # Create a new user and grant privileges
-          mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "CREATE USER 'DrPlain-messaging_app'@'%' IDENTIFIED BY 'DrPlain-004';"
           mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "GRANT ALL PRIVILEGES ON messaging_app.* TO 'DrPlain-messaging_app'@'%';"
           mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "FLUSH PRIVILEGES;"
 
