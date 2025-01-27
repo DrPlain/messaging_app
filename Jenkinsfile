@@ -6,6 +6,15 @@ pipeline {
         REPO_URL = 'https://github.com/DrPlain/messaging_app.git' // Replace with your repository URL
         BRANCH = 'master' // Replace with the branch name you want to build
         VENV_DIR = '.venv' // Directory for Python virtual environment
+        SECRET_KEY = 'django-secret-key'
+        MYSQL_ROOT_PASSWORD='MYSQL_ROOT_PASSWORD'
+        MYSQL_DB='MYSQL_DB'
+        MYSQL_USER='MYSQL_USER'
+        MYSQL_PASSWORD='MYSQL_PASSWORD'
+        MYSQL_HOST='MYSQL_HOST'
+        MYSQL_PORT='MYSQL_PORT'
+        ALLOWED_HOSTS='ALLOWED_HOSTS'
+        DB_ENGINE='DB_ENGINE'
     }
 
     stages {
