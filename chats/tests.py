@@ -16,11 +16,12 @@ class UserTests(TestCase):
             "email": "john.doe@example.com",
             "password": "securepassword",
             "phone_number": "123456789",
-            "role": "User",
+            "role": "admin",
         }
 
     def test_signup_user(self):
-        response = self.client.post(reverse('signup'), self.user_data)
+        response = self.client.post(
+            reverse('signup'), self.user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('user', response.data)
         self.assertIn('message', response.data)
@@ -28,10 +29,11 @@ class UserTests(TestCase):
 
     def test_signup_user_with_existing_email(self):
         User.objects.create(**self.user_data)
-        response = self.client.post(reverse('signup'), self.user_data)
+        response = self.client.post(
+            reverse('signup'), self.user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('error', response.data)
-        self.assertIn('A user with this email already exist',
+        self.assertIn('user with this email already exists',
                       str(response.data['error']))
 
 
@@ -49,7 +51,7 @@ class ConversationTests(TestCase):
 
     def test_create_conversation(self):
         response = self.client.post(
-            reverse('conversation-list'), self.conversation_data)
+            "http://localhost:8000/api-auth/conversations/", self.conversation_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('message', response.data)
         self.assertEqual(response.data['message'],
@@ -57,7 +59,8 @@ class ConversationTests(TestCase):
 
     def test_list_conversations(self):
         Conversation.objects.create()
-        response = self.client.get(reverse('conversation-list'))
+        response = self.client.get(
+            "http://localhost:8000/api-auth/conversations/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('results', response.data)
 
@@ -69,13 +72,14 @@ class MessageTests(TestCase):
             email="user@example.com", password="password")
         self.conversation = Conversation.objects.create()
         self.message_data = {
-            "conversation_id": self.conversation.id,
+            "conversation_id": self.conversation.conversation_id,
             "message_body": "Hello, World!",
         }
         self.client.force_authenticate(user=self.user)
 
     def test_create_message(self):
-        response = self.client.post(reverse('message-list'), self.message_data)
+        response = self.client.post(
+            "http://localhost:8000/api-auth/messages/", self.message_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('message', response.data)
         self.assertEqual(response.data['message'],
@@ -87,7 +91,7 @@ class MessageTests(TestCase):
             sender_id=self.user,
             message_body="Test message"
         )
-        response = self.client.get(reverse('message-list'))
+        response = self.client.get("http://localhost:8000/api-auth/messages/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('results', response.data)
 
@@ -100,7 +104,7 @@ class SerializerTests(TestCase):
             "email": "jane.doe@example.com",
             "password": "securepassword",
             "phone_number": "987654321",
-            "role": "Admin",
+            "role": "admin",
         }
         serializer = SignUpSerializer(data=data)
         self.assertTrue(serializer.is_valid())
@@ -129,7 +133,7 @@ class SerializerTests(TestCase):
             email="user@example.com", password="password")
         conversation = Conversation.objects.create()
         data = {
-            "conversation_id": conversation.id,
+            "conversation_id": conversation.conversation_id,
             "message_body": "Test message",
             "sender_id": user.id,
         }

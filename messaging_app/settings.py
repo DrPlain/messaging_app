@@ -103,7 +103,6 @@ if PRODUCTION == True:
         }
     }
 else:
-    print('Ientered here')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

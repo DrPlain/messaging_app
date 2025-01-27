@@ -32,18 +32,11 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Running tests using pytest...'
+                echo 'Running tests...'
                 sh '''
                 . ${VENV_DIR}/bin/activate
                 python manage.py test
                 '''
-            }
-        }
-
-        stage('Generate Report') {
-            steps {
-                echo 'Archiving test results...'
-                junit 'report.xml' // Archive the test report in JUnit format
             }
         }
     }

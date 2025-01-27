@@ -64,7 +64,6 @@ class SignUpView(generics.GenericAPIView):
 
     def post(self, request: Request, *args, **kwargs):
         data = request.data.copy()
-        print(data['password'])
         data['password'] = make_password(data.pop('password', None))
         serializer = self.serializer_class(data=data)
         if serializer.is_valid():

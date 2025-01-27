@@ -65,6 +65,9 @@ class Conversation(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['created_at']
+
     def __str__(self):
         return f"Conversation {self.conversation_id} created at {self.created_at}"
 
@@ -83,6 +86,7 @@ class Message(models.Model):
         indexes = [
             models.Index(fields=['sent_at'])
         ]
+        ordering = ['sent_at']
 
     def __str__(self):
         return f"Message from {self.sender.email} at {self.sent_at}"
