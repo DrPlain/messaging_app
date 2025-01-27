@@ -1,0 +1,70 @@
+name: Django Tests with MySQL
+
+on:
+  push:
+    branches:
+      - master # You can change this to the branch you want to trigger the workflow
+  pull_request:
+    branches:
+      - master # This will trigger the workflow for PRs targeting the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: "RHJQbGFpbi0wMDQ" # Set your MySQL root password
+          MYSQL_DATABASE: messaging_app # Database name for testing
+          MYSQL_USER: DrPlain-messaging_app
+          MYSQL_PASSWORD: DrPlain-004
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent" --health-start-period=30s
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11" # Use the Python version that your app requires
+
+      - name: Install dependencies
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Wait for MySQL to start
+        run: |
+          sleep 30  # Wait for MySQL to be fully ready
+          # Create a new user and grant privileges
+          mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "CREATE USER 'DrPlain-messaging_app'@'%' IDENTIFIED BY 'DrPlain-004';"
+          mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "GRANT ALL PRIVILEGES ON messaging_app.* TO 'DrPlain-messaging_app'@'%';"
+          mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "FLUSH PRIVILEGES;"
+
+      - name: Run Django tests
+        run: |
+          source .venv/bin/activate
+          python manage.py test  # Run the Django tests
+        env:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_PORT: 3306
+          MYSQL_DB: messaging_app
+          MYSQL_USER: DrPlain-messaging_app
+          MYSQL_PASSWORD: DrPlain-004
+          DB_ENGINE: django.db.backends.mysql
+
+      - name: Upload test results
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: test-reports/ # Ensure that your test reports are saved in this directory
+
