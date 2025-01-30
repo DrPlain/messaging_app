@@ -16,10 +16,10 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: "RHJQbGFpbi0wMDQ" # Set your MySQL root password
-          MYSQL_DATABASE: messaging_app # Database name for testing
-          MYSQL_USER: DrPlain-messaging_app
-          MYSQL_PASSWORD: DrPlain-004
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -44,9 +44,8 @@ jobs:
       - name: Wait for MySQL to start
         run: |
           sleep 30  # Wait for MySQL to be fully ready
-          # Create a new user and grant privileges
-          mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "GRANT ALL PRIVILEGES ON messaging_app.* TO 'DrPlain-messaging_app'@'%';"
-          mysql -h 127.0.0.1 -u root -pRHJQbGFpbi0wMDQ -e "FLUSH PRIVILEGES;"
+          mysql -h 127.0.0.1 -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "GRANT ALL PRIVILEGES ON ${{ secrets.MYSQL_DATABASE }}.* TO '${{ secrets.MYSQL_USER }}'@'%';"
+          mysql -h 127.0.0.1 -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "FLUSH PRIVILEGES;"
 
       - name: Run Django tests
         run: |
@@ -55,9 +54,9 @@ jobs:
         env:
           MYSQL_HOST: 127.0.0.1
           MYSQL_PORT: 3306
-          MYSQL_DB: messaging_app
-          MYSQL_USER: DrPlain-messaging_app
-          MYSQL_PASSWORD: DrPlain-004
+          MYSQL_DB: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           DB_ENGINE: django.db.backends.mysql
 
       - name: Upload test results
@@ -66,4 +65,3 @@ jobs:
         with:
           name: test-report
           path: test-reports/ # Ensure that your test reports are saved in this directory
-
