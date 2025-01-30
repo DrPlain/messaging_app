@@ -41,6 +41,16 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Load Environment Variables
+        run: |
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+          echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> $GITHUB_ENV
+
+      - name: Create .env file
+        run: |
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
+          echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" > .env
+
       - name: Wait for MySQL to start
         run: |
           sleep 30  # Wait for MySQL to be fully ready
@@ -58,6 +68,8 @@ jobs:
           MYSQL_USER: ${{ secrets.MYSQL_DB }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           DB_ENGINE: django.db.backends.mysql
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
 
       - name: Upload test results
         if: success()
