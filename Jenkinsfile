@@ -14,7 +14,7 @@ pipeline {
         MYSQL_HOST='MYSQL_HOST'
         MYSQL_PORT='MYSQL_PORT'
         ALLOWED_HOSTS='ALLOWED_HOSTS'
-        DB_ENGINE='DB_ENGINE_STRING'
+        DB_ENGINE='django.db.backends.mysql'
         DOCKER_IMAGE_NAME = 'drplain004/messaging-app' // Replace with your Docker image name
         DOCKER_REGISTRY = 'docker.io' // Registry for docker hub
         DOCKER_CREDENTIALS_ID = 'docker-credentials-id' // Jenkins credentials for Docker registry
