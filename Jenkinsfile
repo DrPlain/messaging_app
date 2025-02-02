@@ -6,14 +6,14 @@ pipeline {
         REPO_URL = 'https://github.com/DrPlain/messaging_app.git' // Replace with your repository URL
         BRANCH = 'master' // Replace with the branch name you want to build
         VENV_DIR = '.venv' // Directory for Python virtual environment
-        SECRET_KEY = 'django-secret-key'
-        MYSQL_ROOT_PASSWORD='MYSQL_ROOT_PASSWORD'
-        MYSQL_DB='MYSQL_DB'
-        MYSQL_USER='MYSQL_USER'
-        MYSQL_PASSWORD='MYSQL_PASSWORD'
-        MYSQL_HOST='MYSQL_HOST'
-        MYSQL_PORT='MYSQL_PORT'
-        ALLOWED_HOSTS='ALLOWED_HOSTS'
+        SECRET_KEY = 'django-insecure-u3aphu(8n9_#(us5r#yld$-#bdr5u=_c=t5-cx8p-x0by(rh$f'
+        MYSQL_ROOT_PASSWORD='RHJQbGFpbi0wMDQ'
+        MYSQL_DB='messaging_app'
+        MYSQL_USER='DrPlain-messaging_app'
+        MYSQL_PASSWORD='DrPlain-004'
+        MYSQL_HOST='localhost'
+        MYSQL_PORT=3306
+        ALLOWED_HOSTS='localhost,127.0.0.1,192.168.49.2,0.0.0.0,myapp-service.default.svc.cluster.local,messaging-app.local'
         DB_ENGINE='django.db.backends.mysql'
         DOCKER_IMAGE_NAME = 'drplain004/messaging-app' // Replace with your Docker image name
         DOCKER_REGISTRY = 'docker.io' // Registry for docker hub
